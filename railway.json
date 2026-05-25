@@ -1,0 +1,15 @@
+[build]
+nixpacks-applier = "base"
+
+[[build.files]]
+src = "BACKEND/package.json"
+dest = "/app"
+
+[[build.commands]]
+cmd = "cd BACKEND && npm install"
+
+[[build.commands]]
+cmd = "npm run build --prefix BACKEND || true"
+
+[[deploy.commands]]
+cmd = "cd BACKEND && node app.js"
