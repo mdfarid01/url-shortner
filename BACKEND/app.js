@@ -11,13 +11,17 @@ import cors from "cors"
 import { attachUser } from "./src/utils/attachUser.js";
 import cookieParser from "cookie-parser"
 
-dotenv.config("./.env")
+dotenv.config()
 
 const app = express();
 
+const allowedOrigins = process.env.NODE_ENV === 'production'
+  ? [process.env.FRONTEND_URL || 'https://your-frontend.vercel.app']
+  : ['http://localhost:5173', 'http://localhost:3000'];
+
 app.use(cors({
-    origin: 'http://localhost:5173', // your React app
-    credentials: true // 👈 this allows cookies to be sent
+    origin: allowedOrigins,
+    credentials: true
 }));
 
 app.use(express.json())

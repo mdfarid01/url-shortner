@@ -7,7 +7,7 @@ export const registerUser = async (name, email, password) => {
     if(user) throw new ConflictError("User already exists")
     const newUser = await createUser(name, email, password)
     const token = await signToken({id: newUser._id})
-    return {token,user}
+    return {token,user: newUser}
 }
 
 export const loginUser = async (email, password) => {
@@ -16,6 +16,6 @@ export const loginUser = async (email, password) => {
 
     const isPasswordValid = await user.comparePassword(password)
     if(!isPasswordValid) throw new Error("Invalid email or password")
-    const token = signToken({id: user._id})
+    const token = await signToken({id: user._id})
     return {token,user}
 }

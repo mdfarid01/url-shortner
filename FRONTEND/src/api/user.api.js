@@ -1,6 +1,6 @@
 import axiosInstance from "../utils/axiosInstance"
 
-export const loginUser = async (password,email) =>{
+export const loginUser = async (email,password) =>{
     const {data} = await axiosInstance.post("/api/auth/login",{email,password})
     return data
 }
@@ -21,6 +21,6 @@ export const getCurrentUser = async () =>{
 }
 
 export const getAllUserUrls = async () =>{
-    const {data} = await axiosInstance.post("/api/user/urls")
+    const {data} = await axiosInstance.get("/api/user/urls")
     return data
 }
